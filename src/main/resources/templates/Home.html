@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Home</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+
+    <div class="container-fluid">
+        <h2>Selamat Datang</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card" style="width: 1000px;">
+                    <div class="card-header">
+                        Data Pustakawan
+                    </div>
+                    <div class="card-body">
+                        
+                        <a class="btn btn-primary" th:href="@{/pustakawan/tambah}">Tambah Pustakawan</a>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <table border="I">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center">No.</th>
+                                        <th style="text-align: center">NIP</th>
+                                        <th style="text-align: center">Nama Pustakawan</th>
+                                        <th style="text-align: center">Jenis Kelamin</th>
+                                        <th style="text-align: center">Tempat Lahir</th>
+                                        <th style="text-align: center">Tanggal Lahir</th>
+                                        <th style="text-align: center">Spesialisasi</th>
+                                        <th style="text-align: center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+        <tr th:each="pustakawan : ${pustakawan_list}">
+            <td th:text="${pustakawanStat.index + 1}" />
+            <td th:text="${pustakawan.nip}" />
+            <td>
+                <a  th:text="${pustakawan.nama}" th:href="@{/pustakawan/(nip=${pustakawan.nip})}" class="btn btn-link active" role="button" aria-pressed="true" />
+            </td>
+            <td th:text="${pustakawan.jenis_kelamin == 1 ? 'Laki-laki' : 'Perempuan'}" />
+            <td th:text="${pustakawan.tempat_lahir}" />
+            <td th:text="${pustakawan.tanggal_lahir}" />
+            <td>
+                <span th:each="spesialisasi, iterStat : ${pustakawan.getSpesialisasiList()}" th:text="!${iterStat.last} ? ${spesialisasi.getNama()} + ', ' : ${spesialisasi.getNama()}"/>
+            </td>
+            <td>
+                <a th:href="@{/jadwal/tambah/(nip=${pustakawan.nip})}" class="btn btn-primary" role="button"> Jadwal </a>
+                <a th:href="@{/pustakawan/edit/(nip=${pustakawan.nip})}" class="btn btn-primary" role="button"> Ubah </a>
+                <a th:href="@{/pustakawan/delete/{id}(id=${pustakawan.id})}" class="btn btn-danger" role="button">Hapus</a>
+            </td>
+        </tr>
+        </tbody>
+                            </table>
+                            <br>
+                            
+                        </form>
+                        <br>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        
+        <br>
+        
+        
+        </div>
+    </div>
+</body>
+
+</html>

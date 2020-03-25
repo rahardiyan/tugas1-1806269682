@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Home</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+
+    <div class="container-fluid">
+        <h2>Selamat Datang</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card" style="width: 1000px;">
+                    <div class="card-header">
+                        Data Pustakawan
+                    </div>
+                    <div class="card-body">
+                        
+                        <a class="btn btn-primary" th:href="@{/pustakawan/tambah}">Tambah Pustakawan</a>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <table border="I">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center">No.</th>
+                                        <th style="text-align: center">Nama Spesialisasi</th>
+                                        <th style="text-align: center">Jumlah Pustakawan</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+        <tr th:each="spesialisasi : ${spesialisasiList}">
+            <td th:text="${spesialisasiStat.index + 1}" />
+            <td th:text="${spesialisasi.nama}" />
+            
+  
+            
+        </tr>
+        </tbody>
+                            </table>
+                            <br>
+                            
+                        </form>
+                        <br>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        
+        <br>
+        
+        
+        </div>
+    </div>
+</body>
+
+</html>

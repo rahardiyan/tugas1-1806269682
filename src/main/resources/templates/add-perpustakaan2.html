@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Tambah Perpustakaan</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: addPerpustakaan"></nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Tambah Perpustakaan
+                    </div>
+                    <div class="card-body">
+                    
+						<form th:action="@{/perpustakaan/tambah}" th:object="${perpustakaan}" method="POST">
+						
+						Nama Perpustakaan:
+						<input type="text" name="nama" class="form-control" id="nama">
+						
+						Lokasi Perpustakaan:
+						<input type="text" name="lokasi" class="form-control" id="lokasi">
+						<br>
+						<button name="save" type="submit" class="btn btn-primary">Simpan</button>
+                        <button name="reset" type="reset" class="btn btn-primary">Hapus</button>
+						
+						</form>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

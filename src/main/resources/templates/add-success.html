@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Notifikasi</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: addPustakawan"></nav>
+
+    <div class="card-header">
+     Data Berhasil Ditambahkan
+    </div>
+    <a th:href="@{/}" class="btn btn-primary" style="width: 100px; margin: 10px" role="button" th:text="Back"></a>
+</body>
+
+</html>

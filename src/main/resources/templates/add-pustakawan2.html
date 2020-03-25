@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Tambah Pustakawan</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: addPustakawan"></nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Tambah Pustakawan
+                    </div>
+                    <div class="card-body">
+                    
+						<form th:action="@{/pustakawan/tambah}" th:object="${pustakawan}" method="POST">                    
+              
+                            Nama: <br>
+                            <input type="text" name="nama" th:field="*{nama}" class="form-control" id="nama"/>
+                                       
+                            Tempat Lahir: <br>
+                            <input type="text" name="tempat_lahir" th:field="*{tempat_lahir}" class="form-control" id="tempat_lahir">
+                            
+                            Tanggal Lahir: <br>
+                            <input type="date" name="tanggal_lahir" th:field="*{tanggal_lahir}" class="form-control" id="tanggal_lahir">
+                                                     
+                            Jenis Kelamin: <br>
+                            <select id="jenis_kelamin" class="form-control" >
+								<option value="">Jenis Kelamin</option>
+								<option  th:value="${genders[0]}" th:text="${'Laki-laki'}" />
+								<option  th:value="${genders[1]}" th:text="${'Perempuan'}" />
+							</select>
+							
+							Spesialisasi: <br>
+                            <select class="form-control selectpicker" id="spesialisasi_list">
+							<option value="">Spesialisasi</option>
+							<option th:each="spesialisasi : ${spesialisasiList}"
+								th:value="${spesialisasi}"
+								th:text="${spesialisasi.getNama()}">
+							</option>
+							</select>
+                            <br>
+                            <button name="save" type="submit" class="btn btn-primary">Simpan</button>
+                            <button name="reset" type="reset" class="btn btn-primary">Hapus</button>
+                        </form>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
