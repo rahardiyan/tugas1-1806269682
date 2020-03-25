@@ -37,6 +37,16 @@ public class PustakawanController {
         
     }
     
+    @RequestMapping(value ="/pustakawan/cari/")
+    private String searchPustakawan(Model model) {
+    	List<PustakawanModel> allPustakawan = pustakawanService.getAllPustakawan();
+        model.addAttribute("pustakawan_list", allPustakawan);
+        return "cari";
+        
+    }
+
+
+
     @RequestMapping(value = "/pustakawan/tambah", method = RequestMethod.GET)
     private String add(Model model) {
         List<SpesialisasiModel> spesialisasiList = spesialisasiService.getAllSpesialisasi();
@@ -51,6 +61,8 @@ public class PustakawanController {
     @RequestMapping(value = "/pustakawan/tambah", method = RequestMethod.POST, params={"addSpesialisasi"})
     private String addSpesialisasi(@ModelAttribute PustakawanModel pustakawan, Model model) {
 
+        System.out.println("UDAH MASUK SINII" + pustakawan.getSpesialisasiList().size());
+        System.out.println("COBA2: " + pustakawan.getNip());
         List<SpesialisasiModel> spesialisasiList = spesialisasiService.getAllSpesialisasi();
 
         model.addAttribute("genders", Arrays.asList(1,2));
@@ -63,22 +75,12 @@ public class PustakawanController {
     @RequestMapping(value = "/pustakawan/tambah", method = RequestMethod.POST, params={"save"})
     private String addPilotSubmit(@ModelAttribute PustakawanModel pustakawan, Model model) {
         if(pustakawan.getNip() == null) pustakawan.setNip(pustakawanService.generateNip(pustakawan.getTanggal_lahir()));
+        
 
         pustakawanService.addPustakawan(pustakawan);
         model.addAttribute("pustakawan", pustakawan);
-        return "add-message";
+        return "add-success";
     }
-    
-    @RequestMapping(value ="/pustakawan/cari/")
-    private String searchPustakawan(Model model) {
-    	List<PustakawanModel> allPustakawan = pustakawanService.getAllPustakawan();
-        model.addAttribute("pustakawan_list", allPustakawan);
-        return "cari";
-        
-    }
-
-    
-  
 	
     @RequestMapping(value ="/pustakawan", method = RequestMethod.GET)
     public String showPustakawanDetail(@RequestParam(value = "nip") String nip, Model model) {
@@ -117,7 +119,7 @@ public class PustakawanController {
         PustakawanModel editedPustakawan = pustakawanService.getPustakawanDetailByNip(pustakawan.getNip());
         pustakawanService.editPustakawan(pustakawan.getNip(), pustakawan);
         model.addAttribute("pustakawan", editedPustakawan);
-        return "edit-pustakawan-success";
+        return "add-success2";
     }
     
     @RequestMapping(value = "/statistik/", method = RequestMethod.POST)
